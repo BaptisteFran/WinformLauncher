@@ -17,7 +17,7 @@ namespace Launcher
         private Label _labelStatus;
         private PictureBox _logo;
         private WebView2 _webBrowser;
-        private const string RemoteVersionUrl = "https://patch.jibestudio.net/version";
+        private const string RemoteVersionUrl = "your_version_file_url";
         private readonly string _localVersionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "version");
         private readonly string _testBatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.bat");
         private readonly StreamWriter _writer = new StreamWriter("log.txt", true);
@@ -132,7 +132,7 @@ namespace Launcher
               await _webBrowser.EnsureCoreWebView2Async(null);
               _webBrowser.Location = new Point(20, 100);
               _webBrowser.Size = new Size(740, 350);
-              _webBrowser.CoreWebView2.Navigate("https://www.jibestudio.net/rose_online_patches_notes/");
+              _webBrowser.CoreWebView2.Navigate("your_patch_notes_url");
               _webBrowser.BringToFront();
               _webBrowser.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
               _webBrowser.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
@@ -147,7 +147,7 @@ namespace Launcher
  
         private void btnLaunch_Click(object sender, EventArgs e)
         {
-            const string arguments = "@TRIGGER_SOFT@ _server 158.220.110.65";
+            const string arguments = "@TRIGGER_SOFT@ _server your_ip";
 
             // Crée un nouvel objet ProcessStartInfo pour configurer le processus
             var startInfo = new System.Diagnostics.ProcessStartInfo
@@ -203,7 +203,7 @@ namespace Launcher
                     var remoteVersion = await client.GetStringAsync(RemoteVersionUrl);
                     remoteVersion = remoteVersion.Trim();
                     zipFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"update-{remoteVersion}.zip");
-                    zipDownloadUrl = $"https://patch.jibestudio.net/update-{remoteVersion}.zip";
+                    zipDownloadUrl = $"update_url-{remoteVersion}.zip";
 
                     if (IsNewVersionAvailable(localVersion, remoteVersion))
                     {
